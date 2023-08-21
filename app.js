@@ -1,0 +1,39 @@
+const express = require("express");
+const mongoose = require("mongoose");
+const helmet = require("helmet");
+const cors = require("cors");
+const { errors } = require("celebrate");
+const router = require("./routes/index");
+const error500 = require("./middlewares/error500");
+const { requestLogger, errorLogger } = require("./middlewares/logger");
+const config = require("./config");
+
+const { PORT = 3000 } = process.env;
+const app = express();
+
+app.use(cors());
+
+mongoose
+  .connect(config.connectDb)
+  .then(() => console.log("Подключено к Mongo успешно"))
+  .catch((err) => {
+    console.error("Ошибка при подключении к Mongo:", err);
+  });
+
+app.use(express.json());
+
+app.use(helmet());
+
+app.use(requestLogger);
+
+app.use(router);
+
+app.use(errorLogger);
+
+app.use(errors());
+
+app.use(error500);
+
+app.listen(PORT, () => {
+  console.log("Сервер запущен на порту 3000");
+});
