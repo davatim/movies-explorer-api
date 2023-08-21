@@ -6,6 +6,7 @@ const movieRouter = require("./movies");
 const { auth } = require("../middlewares/auth");
 const { login, createUser } = require("../controllers/users");
 const ERROR_404_NOTFOUND = require("../errors/ERROR_404_NOTFOUND");
+const ANAUTHORUZED_REQUEST_401 = require("../errors/ANAUTHORUZED_REQUEST_401");
 
 const validation = require("../middlewares/validation");
 
