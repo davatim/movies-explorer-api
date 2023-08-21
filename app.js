@@ -8,7 +8,7 @@ const error500 = require("./middlewares/error500");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
 const config = require("./config");
 
-const { PORT = 3000 } = process.env;
+const { PORT = 4000 } = process.env;
 const app = express();
 
 app.use(cors());
@@ -35,5 +35,5 @@ app.use(errors());
 app.use(error500);
 
 app.listen(PORT, () => {
-  console.log("Сервер запущен на порту 3000");
+  console.log("Сервер запущен на порту 4000");
 });
