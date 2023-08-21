@@ -17,7 +17,7 @@ router.use("/movies", auth, movieRouter);
 
 router.use((_req, _res, next) => {
   // next(new ERROR_404_NOTFOUND("Ошибка 404 - страница не найдена"));
-  next(new ERROR_404_NOTFOUND("////"));
+  next(new ANAUTHORUZED_REQUEST_401("Сначала авторизуйтесь"));
 });
 
 module.exports = router;
