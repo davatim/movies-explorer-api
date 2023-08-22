@@ -3,7 +3,7 @@ module.exports = (err, req, res, next) => {
   res.status(statusCode).send({
     message:
       statusCode === 500
-        ? "На сервере произошла непредусмотренная ошибка"
+        ? 'На сервере произошла непредусмотренная ошибка'
         : message,
   });
   return next();

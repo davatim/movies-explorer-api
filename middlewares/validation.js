@@ -1,11 +1,11 @@
-const { celebrate, Joi } = require("celebrate");
-const { tUrl } = require("../constants/tUrl");
+const { celebrate, Joi } = require('celebrate');
+const { tUrl } = require('../constants/tUrl');
 
 module.exports.createUser = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
-    name: Joi.string().min(2).max(30),
+    name: Joi.string().required().min(2).max(30),
   }),
 });
 
@@ -37,7 +37,7 @@ module.exports.createMovie = celebrate({
     year: Joi.number().required(),
     description: Joi.string().required(),
     image: Joi.string().required().regex(tUrl),
-    trailer: Joi.string().required().regex(tUrl),
+    trailerLink: Joi.string().required().regex(tUrl),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
     thumbnail: Joi.string().required().regex(tUrl),

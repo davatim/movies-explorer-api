@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
-const Movie = require("../models/movie");
-const ERROR_404_NOTFOUND = require("../errors/ERROR_404_NOTFOUND");
-const ERROR_IN_REQUATION = require("../errors/ERROR_IN_REQUATION");
-const ERROR_403_PERMISSION = require("../errors/ERROR_403_PERMISSION");
+const mongoose = require('mongoose');
+const Movie = require('../models/movie');
+const ERROR_404_NOTFOUND = require('../errors/ERROR_404_NOTFOUND');
+const ERROR_IN_REQUATION = require('../errors/ERROR_IN_REQUATION');
+const ERROR_403_PERMISSION = require('../errors/ERROR_403_PERMISSION');
 
 module.exports.getMowie = (req, res, next) => {
   const owner = req.user._id;
@@ -19,7 +19,7 @@ module.exports.createMovie = (req, res, next) => {
     year,
     description,
     image,
-    trailer,
+    trailerLink,
     nameRU,
     nameEN,
     thumbnail,
@@ -33,7 +33,7 @@ module.exports.createMovie = (req, res, next) => {
     year,
     description,
     image,
-    trailer,
+    trailerLink,
     nameRU,
     nameEN,
     thumbnail,
@@ -45,8 +45,8 @@ module.exports.createMovie = (req, res, next) => {
       if (err instanceof mongoose.Error.ValidationError) {
         next(
           new ERROR_IN_REQUATION(
-            `Переданные данные не корректны. ${err.message}`
-          )
+            `Переданные данные не корректны. ${err.message}`,
+          ),
         );
       } else {
         next(err);
@@ -63,18 +63,18 @@ module.exports.delMovie = (req, res, next) => {
       const user = req.user._id.toString();
       if (owner === user) {
         return Movie.deleteOne(movie).then(() => {
-          res.status(200).send({ message: "Фильм успешно удален" });
+          res.status(200).send({ message: 'Фильм успешно удален' });
         });
       }
       return next(
-        new ERROR_403_PERMISSION("У вас нет прав на данное действие")
+        new ERROR_403_PERMISSION('У вас нет прав на данное действие'),
       );
     })
     .catch((err) => {
-      if (err.name === "CastError") {
-        next(new ERROR_IN_REQUATION("Переданные данные не корректны"));
-      } else if (err.name === "DocumentNotFoundError") {
-        next(new ERROR_404_NOTFOUND("Данные не найдены"));
+      if (err.name === 'CastError') {
+        next(new ERROR_IN_REQUATION('Переданные данные не корректны'));
+      } else if (err.name === 'DocumentNotFoundError') {
+        next(new ERROR_404_NOTFOUND('Данные не найдены'));
       } else {
         next(err);
       }
