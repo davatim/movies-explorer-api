@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const cors = require('cors');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const cookies = require('cookie-parser');
 const { errors } = require('celebrate');
 const router = require('./routes/index');
 const error500 = require('./middlewares/error500');
@@ -21,6 +23,8 @@ mongoose
   });
 
 app.use(express.json());
+
+app.use(cookies());
 
 app.use(helmet());
 

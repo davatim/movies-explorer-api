@@ -64,6 +64,10 @@ module.exports.login = (req, res, next) => {
     .catch(next);
 };
 
+module.exports.logout = (_req, res) => {
+  res.clearCookie('jwt').send({ message: 'Вы вышли' });
+};
+
 module.exports.updateUserInfo = (req, res, next) => {
   const { name, email } = req.body;
   User.findByIdAndUpdate(
