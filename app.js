@@ -15,7 +15,7 @@ const app = express();
 // app.use(cors());
 app.use(
   cors({
-    origin: ['http://localhost:3001', 'https://davatimdiplom.nomoredomainsicu.ru'],
+    origin: ['http://localhost:3000', 'https://davatimdiplom.nomoredomainsicu.ru'],
     credentials: true,
     maxAge: 300,
   }),
