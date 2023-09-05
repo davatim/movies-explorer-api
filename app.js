@@ -12,8 +12,14 @@ const config = require('./config');
 const { PORT = 4000 } = process.env;
 const app = express();
 
-app.use(cors());
-
+// app.use(cors());
+app.use(
+  cors({
+    origin: ['http://localhost:3001', 'https://davatimdiplom.nomoredomainsicu.ru'],
+    credentials: true,
+    maxAge: 300,
+  }),
+);
 mongoose
   .connect(config.connectDb)
   .then(() => console.log('Подключено к Mongo успешно'))
