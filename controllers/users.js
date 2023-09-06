@@ -61,7 +61,7 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         });
-        return res.status(INFO_200_SEC_SEND).send(user);
+        return res.status(200).send(user);
       });
     })
     .catch(next);
