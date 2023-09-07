@@ -14,7 +14,7 @@ router.post('/signup', validation.createUser, createUser);
 router.use(auth);
 router.use('/users', userRouter);
 router.use('/movies', movieRouter);
-router.get('/logout', logout);
+router.post('/logout', logout);
 
 router.use((_req, _res, next) => {
   next(new ERROR_404_NOTFOUND('Данные не обнаружены'));

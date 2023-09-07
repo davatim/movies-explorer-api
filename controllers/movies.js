@@ -4,7 +4,7 @@ const ERROR_404_NOTFOUND = require('../errors/ERROR_404_NOTFOUND');
 const ERROR_IN_REQUATION = require('../errors/ERROR_IN_REQUATION');
 const ERROR_403_PERMISSION = require('../errors/ERROR_403_PERMISSION');
 
-module.exports.getMowie = (req, res, next) => {
+module.exports.getMovie = (req, res, next) => {
   const owner = req.user._id;
   Movie.find({ owner })
     .then((movies) => res.send(movies))

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const config = require('../config');
+// const config = require('../config');
 const CODE_CONFLICT = require('../errors/CODE_CONFLICT');
 const ERROR_404_NOTFOUND = require('../errors/ERROR_404_NOTFOUND');
 const ERROR_IN_REQUATION = require('../errors/ERROR_IN_REQUATION');
@@ -55,16 +55,20 @@ module.exports.login = (req, res, next) => {
         if (!isEqual) {
           throw new ANAUTHORUZED_REQUEST_401('Не правильная почта или пароль');
         }
-        const token = jwt.sign({ _id: user._id }, config.jwtSecret, {
-          expiresIn: '7d',
+        const token = jwt.sign({ _id: user._id }, 'super-secret-kei', { expiresIn: '7d' });
+        res.cookie('jwt', token, {
+          maxAge: 604800,
+          httpOnly: true,
+          sameSite: true,
         });
-        return res.status(200).send({ token });
+        return res.status(200).send(user);
       });
     })
     .catch(next);
 };
 
 module.exports.logout = (_req, res) => {
+  console.log('err');
   res.clearCookie('jwt').send({ message: 'Вы вышли' });
 };
 
