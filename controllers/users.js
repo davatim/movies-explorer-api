@@ -2,13 +2,10 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-// const config = require('../config');
 const CODE_CONFLICT = require('../errors/CODE_CONFLICT');
 const ERROR_404_NOTFOUND = require('../errors/ERROR_404_NOTFOUND');
 const ERROR_IN_REQUATION = require('../errors/ERROR_IN_REQUATION');
 const ANAUTHORUZED_REQUEST_401 = require('../errors/ANAUTHORUZED_REQUEST_401');
-
-// const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports.getCurrentUser = (req, res, next) => {
   const userId = req.user._id;

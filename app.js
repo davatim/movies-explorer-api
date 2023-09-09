@@ -17,7 +17,7 @@ app.use(
   cors({
     origin: ['http://localhost:3000', 'https://davatimdiplom.nomoredomainsicu.ru'],
     credentials: true,
-    maxAge: 30000,
+    maxAge: 3000000000,
   }),
 );
 mongoose

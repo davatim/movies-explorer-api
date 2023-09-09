@@ -3,7 +3,6 @@ const Movie = require('../models/movie');
 const ERROR_404_NOTFOUND = require('../errors/ERROR_404_NOTFOUND');
 const ERROR_IN_REQUATION = require('../errors/ERROR_IN_REQUATION');
 const ERROR_403_PERMISSION = require('../errors/ERROR_403_PERMISSION');
-// const movie = require('../models/movie');
 
 module.exports.getMovie = (req, res, next) => {
   const owner = req.user._id;
@@ -46,8 +45,8 @@ module.exports.createMovie = (req, res, next) => {
       if (err instanceof mongoose.Error.ValidationError) {
         next(
           new ERROR_IN_REQUATION(
-            `Переданные данные не корректны. ${err.message}`,
-          ),
+            `Переданные данные не корректны. ${err.message}`
+          )
         );
       } else {
         next(err);
@@ -59,8 +58,6 @@ module.exports.delMovie = (req, res, next) => {
   const { movieId } = req.params;
   console.log(movieId);
   console.log(req.user);
-  // Movie.find({ movieId })
-  // Movie.find({ movieId: movieId })
   Movie.find({ movieId })
     .orFail()
     .then((movie) => {
@@ -76,12 +73,16 @@ module.exports.delMovie = (req, res, next) => {
         });
       }
       return next(
-        new ERROR_403_PERMISSION('У вас нет прав на данное действие'),
+        new ERROR_403_PERMISSION('У вас нет прав на данное действие')
       );
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new ERROR_IN_REQUATION(`Переданные данные не корректны. ${err.message}`));
+        next(
+          new ERROR_IN_REQUATION(
+            `Переданные данные не корректны. ${err.message}`
+          )
+        );
       } else if (err.name === 'DocumentNotFoundError') {
         next(new ERROR_404_NOTFOUND('Данные не найдены'));
       } else {
