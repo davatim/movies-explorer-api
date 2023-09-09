@@ -3,6 +3,7 @@ const Movie = require('../models/movie');
 const ERROR_404_NOTFOUND = require('../errors/ERROR_404_NOTFOUND');
 const ERROR_IN_REQUATION = require('../errors/ERROR_IN_REQUATION');
 const ERROR_403_PERMISSION = require('../errors/ERROR_403_PERMISSION');
+// const movie = require('../models/movie');
 
 module.exports.getMovie = (req, res, next) => {
   const owner = req.user._id;
@@ -56,13 +57,21 @@ module.exports.createMovie = (req, res, next) => {
 
 module.exports.delMovie = (req, res, next) => {
   const { movieId } = req.params;
-  Movie.findById(movieId)
+  console.log(movieId);
+  console.log(req.user);
+  // Movie.find({ movieId })
+  // Movie.find({ movieId: movieId })
+  Movie.find({ movieId })
     .orFail()
     .then((movie) => {
-      const owner = movie.owner.toString();
+      console.log(movie);
+      const owner = movie[0].owner.toString();
+      console.log(owner);
+      console.log(req.user);
       const user = req.user._id.toString();
+      console.log(req.user);
       if (owner === user) {
-        return Movie.deleteOne(movie).then(() => {
+        return Movie.deleteOne(movie[0]).then(() => {
           res.status(200).send({ message: 'Фильм успешно удален' });
         });
       }
@@ -72,7 +81,7 @@ module.exports.delMovie = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new ERROR_IN_REQUATION('Переданные данные не корректны'));
+        next(new ERROR_IN_REQUATION(`Переданные данные не корректны. ${err.message}`));
       } else if (err.name === 'DocumentNotFoundError') {
         next(new ERROR_404_NOTFOUND('Данные не найдены'));
       } else {
