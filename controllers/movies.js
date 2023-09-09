@@ -45,8 +45,8 @@ module.exports.createMovie = (req, res, next) => {
       if (err instanceof mongoose.Error.ValidationError) {
         next(
           new ERROR_IN_REQUATION(
-            `Переданные данные не корректны. ${err.message}`
-          )
+            `Переданные данные не корректны. ${err.message}`,
+          ),
         );
       } else {
         next(err);
@@ -73,15 +73,15 @@ module.exports.delMovie = (req, res, next) => {
         });
       }
       return next(
-        new ERROR_403_PERMISSION('У вас нет прав на данное действие')
+        new ERROR_403_PERMISSION('У вас нет прав на данное действие'),
       );
     })
     .catch((err) => {
       if (err.name === 'CastError') {
         next(
           new ERROR_IN_REQUATION(
-            `Переданные данные не корректны. ${err.message}`
-          )
+            `Переданные данные не корректны. ${err.message}`,
+          ),
         );
       } else if (err.name === 'DocumentNotFoundError') {
         next(new ERROR_404_NOTFOUND('Данные не найдены'));
