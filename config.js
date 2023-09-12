@@ -6,8 +6,7 @@ const {
 
 const config = {
   nodeEnv: NODE_ENV || 'development',
-  // port: PORT || 4000,
-  port: PORT || 4001,
+  port: PORT || 4000,
   jwtSecret: NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key',
   connectDb: CONNECT || 'mongodb://127.0.0.1:27017/bitfilmsdb',
 };

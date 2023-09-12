@@ -9,13 +9,13 @@ const error500 = require('./middlewares/error500');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const config = require('./config');
 
-const { PORT = 4000 } = process.env;
+const { PORT = 3000 } = process.env;
 const app = express();
 
 // app.use(cors());
 app.use(
   cors({
-    origin: [ // 'http://localhost:4000',
+    origin: ['http://localhost:3000',
       'https://davatimdiplom.nomoredomainsicu.ru'],
     credentials: true,
     maxAge: 3000000000,
