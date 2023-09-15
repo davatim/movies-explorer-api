@@ -54,7 +54,8 @@ module.exports.login = (req, res, next) => {
         }
         const token = jwt.sign({ _id: user._id }, 'super-secret-kei', { expiresIn: '7d' });
         res.cookie('jwt', token, {
-          maxAge: 604800,
+          // maxAge: 604800,
+          maxAge: 60480000,
           httpOnly: true,
           sameSite: true,
         });
