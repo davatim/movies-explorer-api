@@ -12,7 +12,6 @@ const config = require('./config');
 const { PORT = 4000 } = process.env;
 const app = express();
 
-// app.use(cors());
 app.use(
   cors({
     origin: ['http://localhost:3000',
