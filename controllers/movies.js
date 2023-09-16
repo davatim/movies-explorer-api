@@ -56,7 +56,9 @@ module.exports.createMovie = (req, res, next) => {
 
 module.exports.delMovie = (req, res, next) => {
   const { movieId } = req.params;
-  Movie.find({ movieId })
+  const id = req.user._id.toString();
+  console.log(id);
+  Movie.find({ movieId, owner: id })
     .orFail()
     .then((movie) => {
       const owner = movie[0].owner.toString();
