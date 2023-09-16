@@ -31,12 +31,12 @@ module.exports.createUser = (req, res, next) => {
     }))
     .catch((err) => {
       if (err.code === 11000) {
-        next(new CODE_CONFLICT('Этот E-mail зарегистрирован'));
-      } else if (err instanceof mongoose.Error.ValidationError) {
-        next(new ERROR_IN_REQUATION('Переданные данные не корректны'));
-      } else {
-        next(err);
+        return next(new CODE_CONFLICT('Этот E-mail зарегистрирован'));
       }
+      if (err instanceof mongoose.Error.ValidationError) {
+        return next(new ERROR_IN_REQUATION('Переданные данные не корректны'));
+      }
+      return next(err);
     });
 };
 
