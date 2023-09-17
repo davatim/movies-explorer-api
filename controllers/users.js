@@ -42,9 +42,11 @@ module.exports.createUser = (req, res, next) => {
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
+  // console.log(email, password);
   User.findOne({ email })
     .select('+password')
     .then((user) => {
+      console.log(user);
       if (!user) {
         throw new ANAUTHORUZED_REQUEST_401('Не правильная почта или пароль');
       }
@@ -56,9 +58,10 @@ module.exports.login = (req, res, next) => {
         res.cookie('jwt', token, {
           maxAge: 60480000,
           httpOnly: true,
-          sameSite: true,
+          sameSite: 'none',
+          secure: true,
         });
-        return res.status(200).send(user);
+        res.status(200).send(user);
       });
     })
     .catch(next);
