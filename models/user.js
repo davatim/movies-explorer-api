@@ -26,5 +26,6 @@ const userShema = new mongoose.Schema(
   },
   { versionKey: false },
 );
-
-module.exports = mongoose.model('user', userShema);
+const model = mongoose.model('user', userShema);
+model.createIndexes();
+module.exports = model;
